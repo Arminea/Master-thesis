@@ -1,6 +1,8 @@
 # Detection of Specific Objects in Digital Images Leading to Scene Content Identification
 author: Tereza Štanglová
 
+<i> Readme in progress </i>
+
 Table of contents
 ------------------
 
