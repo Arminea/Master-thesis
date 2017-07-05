@@ -1,0 +1,20 @@
+<data>
+<faq>
+	<question>What's CNTK?</question>
+	<answer>The Microsoft Cognitive Toolkit (CNTK), is a unified deep-learning toolkit that describes neural networks as a series of computational steps via a directed graph. In this directed graph, leaf nodes represent input values or network parameters, while other nodes represent matrix operations upon their inputs. For more information you can go to <a href="https://github.com/Microsoft/CNTK/wiki" target="_blank">CNTK wiki</a>.</answer>
+</faq>
+<faq>
+	<question>Why not puppies or kitties as target image?</question>
+	<answer>Puppies and kitties are adorable but there is not as many images of cute baby animals as pornography on internet. </answer>
+</faq>
+<faq>
+	<question>Why does it took so long?</question>
+	<answer>Well, prediction of your image is computationally intensive operation. It requires some time to process your input but I'm confident that you can wait approximately 3 seconds for a result :)</answer>
+</faq>
+<!--
+<faq>
+	<question></question>
+	<answer></answer>
+</faq>
+-->
+</data>

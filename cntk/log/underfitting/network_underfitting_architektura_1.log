@@ -1,0 +1,340 @@
+-------------------------------------------------------------------
+Build info: 
+
+		Built time: Sep  5 2016 18:57:07
+		Last modified date: Mon Sep  5 17:12:56 2016
+		Build type: Release
+		Build target: CPU-only
+		With 1bit-SGD: no
+		Math lib: mkl
+		Build Branch: master
+		Build SHA1: 6882490d6ff2c006b7940413d531580dcb24a2c1
+		Built by Teri on Teri-PC
+		Build Path: D:\CNTK\CNTK_project\Source\CNTK\
+-------------------------------------------------------------------
+
+Running on Teri-PC at 2016/09/05 19:21:04
+Command line: 
+cntk  configFile=config_all.cntk
+
+
+Configuration After Processing and Variable Resolution:
+
+configparameters: config_all.cntk:command=Train:Test
+configparameters: config_all.cntk:ConfigDir=../config
+configparameters: config_all.cntk:DataDir=../data
+configparameters: config_all.cntk:deviceId=-1
+configparameters: config_all.cntk:ImageHeight=64
+configparameters: config_all.cntk:ImageWidth=64
+configparameters: config_all.cntk:labels=2
+configparameters: config_all.cntk:LogDir=../log
+configparameters: config_all.cntk:ModelDir=../model
+configparameters: config_all.cntk:modelPath=../model/model.dnn
+configparameters: config_all.cntk:NumberOfChannels=3
+configparameters: config_all.cntk:precision=float
+configparameters: config_all.cntk:RootDir=..
+configparameters: config_all.cntk:stderr=../log/log
+configparameters: config_all.cntk:Test=[
+	action = "test"
+	reader = [
+		readerType="ImageReader"
+		file = "../config/all/test_map.txt"
+		randomize = "auto"
+		features = [
+			width = 64
+            height = 64
+            channels = 3
+            cropType=Center
+            transforms = (
+               [ 
+               		type = "Scale"
+               		width = 64
+            		height = 64
+            		channels = 3
+               		interpolations = "linear"
+               	]:
+               	[
+               		type = "Transpose"
+               	]
+            )
+		]
+		labels = [
+			labelDim = 2		
+		]
+	]
+]
+
+configparameters: config_all.cntk:Train=[
+	action = "train"	
+	BrainScriptNetworkBuilder = (new ComputationNetwork [
+        include "../config/macros.bs"
+include "../config/conv.bs"				
+	])
+	SGD = [
+		maxEpochs = 30
+		minibatchSize = 32
+learningRatesPerMB = 0.1*20:0.07		
+	]
+	reader = [
+		readerType="ImageReader"
+		file = "../config/all/train_map.txt"
+		randomize = "auto"
+		features = [
+			width = 64
+            height = 64
+            channels = 3
+            transforms = (
+               [ 
+               		type = "Scale"
+               		width = 64
+            		height = 64
+            		channels = 3
+               		interpolations = "linear"
+               	]:
+               	[
+               		type = "Transpose"
+               	]
+            )
+            brightnessRadius=0:0.2
+            contrastRadius=0:0.4
+            saturationRadius=0:0.4
+		]
+		labels = [
+			labelDim = 2	
+		]
+	]
+]
+
+Commands: Train Test
+Precision = "float"
+CNTKModelPath: ../model/model.dnn
+CNTKCommandTrainInfo: Train : 30
+CNTKCommandTrainInfo: CNTKNoMoreCommands_Total : 30
+
+##############################################################################
+#                                                                            #
+# Action "train"                                                             #
+#                                                                            #
+##############################################################################
+
+CNTKCommandTrainBegin: Train
+
+Starting from checkpoint. Loading network from '../model/model.dnn.0'.
+
+Post-processing network...
+
+2 roots:
+	ce = CrossEntropyWithSoftmax()
+	errs = ClassificationError()
+
+Validating network. 28 nodes to process in pass 1.
+
+Validating --> labels = InputValue() :  -> [2 x *]
+Validating --> o1.W = LearnableParameter() :  -> [2 x 128]
+Validating --> h1.W = LearnableParameter() :  -> [128 x 16 x 16 x 32]
+Validating --> conv2.W = LearnableParameter() :  -> [32 x 400]
+Validating --> conv1.W = LearnableParameter() :  -> [16 x 75]
+Validating --> features = InputValue() :  -> [64 x 64 x 3 x *]
+Validating --> featOffs = LearnableParameter() :  -> [1 x 1]
+Validating --> featScaled = Minus (features, featOffs) : [64 x 64 x 3 x *], [1 x 1] -> [64 x 64 x 3 x *]
+Validating --> conv1.c = Convolution (conv1.W, featScaled) : [16 x 75], [64 x 64 x 3 x *] -> [64 x 64 x 16 x *]
+Validating --> conv1.b = LearnableParameter() :  -> [1 x 1 x 16]
+Validating --> conv1.z = Plus (conv1.c, conv1.b) : [64 x 64 x 16 x *], [1 x 1 x 16] -> [64 x 64 x 16 x *]
+Validating --> conv1 = RectifiedLinear (conv1.z) : [64 x 64 x 16 x *] -> [64 x 64 x 16 x *]
+Validating --> pool1 = Pooling (conv1) : [64 x 64 x 16 x *] -> [32 x 32 x 16 x *]
+Validating --> conv2.c = Convolution (conv2.W, pool1) : [32 x 400], [32 x 32 x 16 x *] -> [32 x 32 x 32 x *]
+Validating --> conv2.b = LearnableParameter() :  -> [1 x 1 x 32]
+Validating --> conv2.z = Plus (conv2.c, conv2.b) : [32 x 32 x 32 x *], [1 x 1 x 32] -> [32 x 32 x 32 x *]
+Validating --> conv2 = RectifiedLinear (conv2.z) : [32 x 32 x 32 x *] -> [32 x 32 x 32 x *]
+Validating --> pool2 = Pooling (conv2) : [32 x 32 x 32 x *] -> [16 x 16 x 32 x *]
+Validating --> h1.t = Times (h1.W, pool2) : [128 x 16 x 16 x 32], [16 x 16 x 32 x *] -> [128 x *]
+Validating --> h1.b = LearnableParameter() :  -> [128 x 1]
+Validating --> h1.z = Plus (h1.t, h1.b) : [128 x *], [128 x 1] -> [128 x 1 x *]
+Validating --> h1 = RectifiedLinear (h1.z) : [128 x 1 x *] -> [128 x 1 x *]
+Validating --> h1_d = Dropout (h1) : [128 x 1 x *] -> [128 x 1 x *]
+Validating --> o1.t = Times (o1.W, h1_d) : [2 x 128], [128 x 1 x *] -> [2 x 1 x *]
+Validating --> o1.b = LearnableParameter() :  -> [2 x 1]
+Validating --> o1 = Plus (o1.t, o1.b) : [2 x 1 x *], [2 x 1] -> [2 x 1 x *]
+Validating --> ce = CrossEntropyWithSoftmax (labels, o1) : [2 x *], [2 x 1 x *] -> [1]
+Validating --> errs = ClassificationError (labels, o1) : [2 x *], [2 x 1 x *] -> [1]
+
+Validating network. 17 nodes to process in pass 2.
+
+
+Validating network, final pass.
+
+conv1.c: using GEMM convolution engine for geometry: Input: 64 x 64 x 3, Output: 64 x 64 x 16, Kernel: 5 x 5 x 3, Map: 16, Stride: 1 x 1 x 3, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool1: using GEMM convolution engine for geometry: Input: 64 x 64 x 16, Output: 32 x 32 x 16, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv2.c: using GEMM convolution engine for geometry: Input: 32 x 32 x 16, Output: 32 x 32 x 32, Kernel: 5 x 5 x 16, Map: 32, Stride: 1 x 1 x 16, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool2: using GEMM convolution engine for geometry: Input: 32 x 32 x 32, Output: 16 x 16 x 32, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+
+
+11 out of 28 nodes do not share the minibatch layout with the input data.
+
+Post-processing network complete.
+
+Loaded model with 28 nodes on CPU.
+
+Training criterion node(s):
+	ce = CrossEntropyWithSoftmax
+
+Evaluation criterion node(s):
+	errs = ClassificationError
+
+
+Allocating matrices for forward and/or backward propagation.
+
+Memory Sharing: Out of 51 matrices, 31 are shared as 14, and 20 are not shared.
+
+	{ conv1 : [64 x 64 x 16 x *] (gradient)
+	  conv1.b : [1 x 1 x 16] (gradient) }
+	{ conv1.W : [16 x 75] (gradient)
+	  conv1.z : [64 x 64 x 16 x *] }
+	{ conv1 : [64 x 64 x 16 x *]
+	  conv1.c : [64 x 64 x 16 x *] (gradient) }
+	{ conv1.z : [64 x 64 x 16 x *] (gradient)
+	  pool1 : [32 x 32 x 16 x *] }
+	{ h1_d : [128 x 1 x *] (gradient)
+	  o1 : [2 x 1 x *] (gradient) }
+	{ conv2.z : [32 x 32 x 32 x *] (gradient)
+	  pool1 : [32 x 32 x 16 x *] (gradient)
+	  pool2 : [16 x 16 x 32 x *] }
+	{ conv2 : [32 x 32 x 32 x *] (gradient)
+	  conv2.b : [1 x 1 x 32] (gradient)
+	  h1.t : [128 x *] }
+	{ h1.W : [128 x 16 x 16 x 32] (gradient)
+	  h1.z : [128 x 1 x *] }
+	{ conv2 : [32 x 32 x 32 x *]
+	  conv2.c : [32 x 32 x 32 x *] (gradient) }
+	{ o1 : [2 x 1 x *]
+	  o1.W : [2 x 128] (gradient) }
+	{ conv2.W : [32 x 400] (gradient)
+	  conv2.z : [32 x 32 x 32 x *] }
+	{ h1 : [128 x 1 x *]
+	  h1.t : [128 x *] (gradient) }
+	{ h1.z : [128 x 1 x *] (gradient)
+	  pool2 : [16 x 16 x 32 x *] (gradient) }
+	{ h1 : [128 x 1 x *] (gradient)
+	  h1.b : [128 x 1] (gradient)
+	  o1.t : [2 x 1 x *] }
+
+
+Training 1063010 parameters in 8 out of 8 parameter tensors and 23 nodes with gradient:
+
+	Node 'conv1.W' (LearnableParameter operation) : [16 x 75]
+	Node 'conv1.b' (LearnableParameter operation) : [1 x 1 x 16]
+	Node 'conv2.W' (LearnableParameter operation) : [32 x 400]
+	Node 'conv2.b' (LearnableParameter operation) : [1 x 1 x 32]
+	Node 'h1.W' (LearnableParameter operation) : [128 x 16 x 16 x 32]
+	Node 'h1.b' (LearnableParameter operation) : [128 x 1]
+	Node 'o1.W' (LearnableParameter operation) : [2 x 128]
+	Node 'o1.b' (LearnableParameter operation) : [2 x 1]
+
+No PreCompute nodes found, or all already computed. Skipping pre-computation step.
+Finished Epoch[ 1 of 30]: [Training] ce = 44440034.79847909 * 263; errs = 46.008% * 263; totalSamplesSeen = 263; learningRatePerSample = 0.003125; epochTime=5.17007s
+Finished Epoch[ 2 of 30]: [Training] ce = 0.71286243 * 263; errs = 44.106% * 263; totalSamplesSeen = 526; learningRatePerSample = 0.003125; epochTime=5.45048s
+Finished Epoch[ 3 of 30]: [Training] ce = 0.68969721 * 263; errs = 44.106% * 263; totalSamplesSeen = 789; learningRatePerSample = 0.003125; epochTime=5.53522s
+Finished Epoch[ 4 of 30]: [Training] ce = 0.68873387 * 263; errs = 44.106% * 263; totalSamplesSeen = 1052; learningRatePerSample = 0.003125; epochTime=5.52708s
+Finished Epoch[ 5 of 30]: [Training] ce = 0.68850168 * 263; errs = 44.106% * 263; totalSamplesSeen = 1315; learningRatePerSample = 0.003125; epochTime=5.60809s
+Finished Epoch[ 6 of 30]: [Training] ce = 0.68674379 * 263; errs = 44.106% * 263; totalSamplesSeen = 1578; learningRatePerSample = 0.003125; epochTime=5.97743s
+Finished Epoch[ 7 of 30]: [Training] ce = 0.68660112 * 263; errs = 44.106% * 263; totalSamplesSeen = 1841; learningRatePerSample = 0.003125; epochTime=5.73103s
+Finished Epoch[ 8 of 30]: [Training] ce = 0.68620776 * 263; errs = 44.106% * 263; totalSamplesSeen = 2104; learningRatePerSample = 0.003125; epochTime=5.54798s
+Finished Epoch[ 9 of 30]: [Training] ce = 0.68623758 * 263; errs = 44.106% * 263; totalSamplesSeen = 2367; learningRatePerSample = 0.003125; epochTime=5.72481s
+Finished Epoch[10 of 30]: [Training] ce = 0.68634422 * 263; errs = 44.106% * 263; totalSamplesSeen = 2630; learningRatePerSample = 0.003125; epochTime=5.6174s
+Finished Epoch[11 of 30]: [Training] ce = 0.68626769 * 263; errs = 44.106% * 263; totalSamplesSeen = 2893; learningRatePerSample = 0.003125; epochTime=5.6391s
+Finished Epoch[12 of 30]: [Training] ce = 0.68629119 * 263; errs = 44.106% * 263; totalSamplesSeen = 3156; learningRatePerSample = 0.003125; epochTime=5.84665s
+Finished Epoch[13 of 30]: [Training] ce = 0.68624948 * 263; errs = 44.106% * 263; totalSamplesSeen = 3419; learningRatePerSample = 0.003125; epochTime=5.6159s
+Finished Epoch[14 of 30]: [Training] ce = 0.68684312 * 263; errs = 44.106% * 263; totalSamplesSeen = 3682; learningRatePerSample = 0.003125; epochTime=5.59428s
+Finished Epoch[15 of 30]: [Training] ce = 0.68625214 * 263; errs = 44.106% * 263; totalSamplesSeen = 3945; learningRatePerSample = 0.003125; epochTime=5.74987s
+Finished Epoch[16 of 30]: [Training] ce = 0.68672731 * 263; errs = 44.106% * 263; totalSamplesSeen = 4208; learningRatePerSample = 0.003125; epochTime=5.84399s
+Finished Epoch[17 of 30]: [Training] ce = 0.68672047 * 263; errs = 44.106% * 263; totalSamplesSeen = 4471; learningRatePerSample = 0.003125; epochTime=5.51505s
+Finished Epoch[18 of 30]: [Training] ce = 0.68622592 * 263; errs = 44.106% * 263; totalSamplesSeen = 4734; learningRatePerSample = 0.003125; epochTime=5.70226s
+Finished Epoch[19 of 30]: [Training] ce = 0.68624483 * 263; errs = 44.106% * 263; totalSamplesSeen = 4997; learningRatePerSample = 0.003125; epochTime=5.51224s
+Finished Epoch[20 of 30]: [Training] ce = 0.68621292 * 263; errs = 44.106% * 263; totalSamplesSeen = 5260; learningRatePerSample = 0.003125; epochTime=5.57642s
+Finished Epoch[21 of 30]: [Training] ce = 0.68631712 * 263; errs = 44.106% * 263; totalSamplesSeen = 5523; learningRatePerSample = 0.0021875; epochTime=5.79498s
+Finished Epoch[22 of 30]: [Training] ce = 0.68627605 * 263; errs = 44.106% * 263; totalSamplesSeen = 5786; learningRatePerSample = 0.0021875; epochTime=5.71492s
+Finished Epoch[23 of 30]: [Training] ce = 0.68630778 * 263; errs = 44.106% * 263; totalSamplesSeen = 6049; learningRatePerSample = 0.0021875; epochTime=5.79324s
+Finished Epoch[24 of 30]: [Training] ce = 0.68628974 * 263; errs = 44.106% * 263; totalSamplesSeen = 6312; learningRatePerSample = 0.0021875; epochTime=5.81751s
+Finished Epoch[25 of 30]: [Training] ce = 0.68639702 * 263; errs = 44.106% * 263; totalSamplesSeen = 6575; learningRatePerSample = 0.0021875; epochTime=5.62369s
+Finished Epoch[26 of 30]: [Training] ce = 0.68628220 * 263; errs = 44.106% * 263; totalSamplesSeen = 6838; learningRatePerSample = 0.0021875; epochTime=5.56069s
+Finished Epoch[27 of 30]: [Training] ce = 0.68627344 * 263; errs = 44.106% * 263; totalSamplesSeen = 7101; learningRatePerSample = 0.0021875; epochTime=5.57084s
+Finished Epoch[28 of 30]: [Training] ce = 0.68657542 * 263; errs = 44.106% * 263; totalSamplesSeen = 7364; learningRatePerSample = 0.0021875; epochTime=5.63596s
+Finished Epoch[29 of 30]: [Training] ce = 0.68623422 * 263; errs = 44.106% * 263; totalSamplesSeen = 7627; learningRatePerSample = 0.0021875; epochTime=5.94395s
+Finished Epoch[30 of 30]: [Training] ce = 0.68627773 * 263; errs = 44.106% * 263; totalSamplesSeen = 7890; learningRatePerSample = 0.0021875; epochTime=5.58603s
+CNTKCommandTrainEnd: Train
+
+Action "train" complete.
+
+
+##############################################################################
+#                                                                            #
+# Action "test"                                                              #
+#                                                                            #
+##############################################################################
+
+
+Post-processing network...
+
+2 roots:
+	ce = CrossEntropyWithSoftmax()
+	errs = ClassificationError()
+
+Validating network. 28 nodes to process in pass 1.
+
+Validating --> labels = InputValue() :  -> [2 x *1]
+Validating --> o1.W = LearnableParameter() :  -> [2 x 128]
+Validating --> h1.W = LearnableParameter() :  -> [128 x 16 x 16 x 32]
+Validating --> conv2.W = LearnableParameter() :  -> [32 x 400]
+Validating --> conv1.W = LearnableParameter() :  -> [16 x 75]
+Validating --> features = InputValue() :  -> [64 x 64 x 3 x *1]
+Validating --> featOffs = LearnableParameter() :  -> [1 x 1]
+Validating --> featScaled = Minus (features, featOffs) : [64 x 64 x 3 x *1], [1 x 1] -> [64 x 64 x 3 x *1]
+Validating --> conv1.c = Convolution (conv1.W, featScaled) : [16 x 75], [64 x 64 x 3 x *1] -> [64 x 64 x 16 x *1]
+Validating --> conv1.b = LearnableParameter() :  -> [1 x 1 x 16]
+Validating --> conv1.z = Plus (conv1.c, conv1.b) : [64 x 64 x 16 x *1], [1 x 1 x 16] -> [64 x 64 x 16 x *1]
+Validating --> conv1 = RectifiedLinear (conv1.z) : [64 x 64 x 16 x *1] -> [64 x 64 x 16 x *1]
+Validating --> pool1 = Pooling (conv1) : [64 x 64 x 16 x *1] -> [32 x 32 x 16 x *1]
+Validating --> conv2.c = Convolution (conv2.W, pool1) : [32 x 400], [32 x 32 x 16 x *1] -> [32 x 32 x 32 x *1]
+Validating --> conv2.b = LearnableParameter() :  -> [1 x 1 x 32]
+Validating --> conv2.z = Plus (conv2.c, conv2.b) : [32 x 32 x 32 x *1], [1 x 1 x 32] -> [32 x 32 x 32 x *1]
+Validating --> conv2 = RectifiedLinear (conv2.z) : [32 x 32 x 32 x *1] -> [32 x 32 x 32 x *1]
+Validating --> pool2 = Pooling (conv2) : [32 x 32 x 32 x *1] -> [16 x 16 x 32 x *1]
+Validating --> h1.t = Times (h1.W, pool2) : [128 x 16 x 16 x 32], [16 x 16 x 32 x *1] -> [128 x *1]
+Validating --> h1.b = LearnableParameter() :  -> [128 x 1]
+Validating --> h1.z = Plus (h1.t, h1.b) : [128 x *1], [128 x 1] -> [128 x 1 x *1]
+Validating --> h1 = RectifiedLinear (h1.z) : [128 x 1 x *1] -> [128 x 1 x *1]
+Validating --> h1_d = Dropout (h1) : [128 x 1 x *1] -> [128 x 1 x *1]
+Validating --> o1.t = Times (o1.W, h1_d) : [2 x 128], [128 x 1 x *1] -> [2 x 1 x *1]
+Validating --> o1.b = LearnableParameter() :  -> [2 x 1]
+Validating --> o1 = Plus (o1.t, o1.b) : [2 x 1 x *1], [2 x 1] -> [2 x 1 x *1]
+Validating --> ce = CrossEntropyWithSoftmax (labels, o1) : [2 x *1], [2 x 1 x *1] -> [1]
+Validating --> errs = ClassificationError (labels, o1) : [2 x *1], [2 x 1 x *1] -> [1]
+
+Validating network. 17 nodes to process in pass 2.
+
+
+Validating network, final pass.
+
+conv1.c: using GEMM convolution engine for geometry: Input: 64 x 64 x 3, Output: 64 x 64 x 16, Kernel: 5 x 5 x 3, Map: 16, Stride: 1 x 1 x 3, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool1: using GEMM convolution engine for geometry: Input: 64 x 64 x 16, Output: 32 x 32 x 16, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv2.c: using GEMM convolution engine for geometry: Input: 32 x 32 x 16, Output: 32 x 32 x 32, Kernel: 5 x 5 x 16, Map: 32, Stride: 1 x 1 x 16, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool2: using GEMM convolution engine for geometry: Input: 32 x 32 x 32, Output: 16 x 16 x 32, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+
+
+11 out of 28 nodes do not share the minibatch layout with the input data.
+
+Post-processing network complete.
+
+evalNodeNames are not specified, using all the default evalnodes and training criterion nodes.
+
+
+Allocating matrices for forward and/or backward propagation.
+
+Memory Sharing: Out of 28 matrices, 0 are shared as 0, and 28 are not shared.
+
+
+Final Results: Minibatch[1-1]: errs = 30.460% * 174; ce = 0.65578070 * 174; perplexity = 1.92664607
+
+Action "test" complete.
+
+__COMPLETED__

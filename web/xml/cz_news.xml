@@ -1,0 +1,32 @@
+<data>
+	<!--
+<news>
+	<header></header>
+	<date></date>
+	<text>
+		
+	</text>
+</news>
+-->
+<news>
+	<header>Nový model</header>
+	<date>12.05.2017</date>
+	<text>
+		Byl vytvořen nový model neuronové sítě.
+	</text>
+</news>
+<news>
+	<header>Čeština součástí stránek</header>
+	<date>24.03.2017</date>
+	<text>
+		Nyní je možné zobrazovat stránky v českém i anglickém jazyce.
+	</text>
+</news>
+<news>
+	<header>Beta verze</header>
+	<date>15.03.2017</date>
+	<text>
+		Je mi potěšením Vám sdělit, že beta verze webových stránek je spuštěna.
+	</text>
+</news>
+</data>

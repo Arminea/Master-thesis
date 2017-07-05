@@ -1,0 +1,396 @@
+-------------------------------------------------------------------
+Build info: 
+
+		Built time: Aug 30 2016 14:07:50
+		Last modified date: Sat Aug 27 12:29:04 2016
+		Build type: release
+		Build target: GPU
+		With 1bit-SGD: no
+		Math lib: mkl
+		CUDA_PATH: /usr/local/cuda-7.5
+		CUB_PATH: /usr/local/cub-1.4.1
+		CUDNN_PATH: /usr/local/cudnn-5.1
+		Build Branch: HEAD
+		Build SHA1: 2f9c73cab134c45ab3ddcf1ca6873cc4d18dec34
+		Built by philly on 165aacede5b7
+		Build Path: /home/philly/jenkins/workspace/CNTK-Build-Linux
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+GPU info:
+
+		Device[0]: cores = 2496; computeCapability = 5.2; type = "GeForce GTX 970"; memory = 4035 MB
+-------------------------------------------------------------------
+
+Running on localhost at 2017/03/11 18:55:17
+Command line: 
+cntk  configFile=config_alexnet_v1.cntk  deviceId=0
+
+
+Configuration After Processing and Variable Resolution:
+
+configparameters: config_alexnet_v1.cntk:command=Train:Test
+configparameters: config_alexnet_v1.cntk:ConfigDir=../config
+configparameters: config_alexnet_v1.cntk:DataDir=../data
+configparameters: config_alexnet_v1.cntk:deviceId=0
+configparameters: config_alexnet_v1.cntk:ImageHeight=224
+configparameters: config_alexnet_v1.cntk:ImageWidth=224
+configparameters: config_alexnet_v1.cntk:labels=2
+configparameters: config_alexnet_v1.cntk:LogDir=../log
+configparameters: config_alexnet_v1.cntk:ModelDir=../model
+configparameters: config_alexnet_v1.cntk:modelPath=../model/AlexNet/model.dnn
+configparameters: config_alexnet_v1.cntk:NumberOfChannels=3
+configparameters: config_alexnet_v1.cntk:RootDir=..
+configparameters: config_alexnet_v1.cntk:stderr=../log/AlexNet/log
+configparameters: config_alexnet_v1.cntk:Test=[
+    action="test"
+    minibatchSize=128
+    reader=[
+        readerType="ImageReader"
+        file="../config/all/test_map.txt"
+        randomize="None"
+        features=[
+            cropType="Center"
+            width=224
+            height=224
+            channels=3
+            transforms = (
+               [ 
+               		type = "Scale"
+               		width = 224
+            		height = 224
+            		channels = 3
+               	]#:
+            )
+        ]
+        labels=[
+            labelDim=2
+        ]
+    ]    
+]
+
+configparameters: config_alexnet_v1.cntk:Train=[
+    action="train"
+    BrainScriptNetworkBuilder = (new ComputationNetwork [
+        include "../config/macros.bs"
+include "../config/conv_alexnet_v1.bs"	
+	])
+    SGD=[
+        epochSize=0
+        minibatchSize=128
+        learningRatesPerMB=0.01*20:0.003*12:0.001*28:0.0003
+        momentumPerMB=0.9
+        maxEpochs=30
+        gradUpdateType=None
+        L2RegWeight=0.0005
+        dropoutRate=0*5:0.5
+    ]
+    reader=[
+        readerType="ImageReader"
+        file="../config/train_map.txt"
+        randomize="Auto"
+        features=[
+            width=224
+            height=224
+            channels=3
+            cropType="Random"
+            cropRatio=0.875
+            jitterType="UniRatio"
+            transforms = (
+               [ 
+               		type = "Scale"
+               		width = 224
+            		height = 224
+            		channels = 3
+               		interpolations = "linear"
+               	]:
+               	[
+               		type = "Transpose"
+               	]
+            )
+        ]
+        labels=[
+            labelDim=2
+        ]
+    ]    
+]
+
+Commands: Train Test
+Precision = "float"
+CNTKModelPath: ../model/AlexNet/model.dnn
+CNTKCommandTrainInfo: Train : 30
+CNTKCommandTrainInfo: CNTKNoMoreCommands_Total : 30
+
+##############################################################################
+#                                                                            #
+# Action "train"                                                             #
+#                                                                            #
+##############################################################################
+
+CNTKCommandTrainBegin: Train
+
+Creating virgin network.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 4096] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 4096] <- gaussian(seed=1, init dims=[2 x 4096], range=0.003125*3.200000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 4096] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 4096] <- gaussian(seed=2, init dims=[4096 x 4096], range=0.003125*3.200000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 7 x 7 x 256] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 7 x 7 x 256] <- uniform(seed=3, init dims=[4096 x 12544], range=0.050000*1.000000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[256 x 2304] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[256 x 2304] <- gaussian(seed=4, init dims=[256 x 2304], range=0.004167*2.400000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[256 x 3456] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[256 x 3456] <- gaussian(seed=5, init dims=[256 x 3456], range=0.003402*2.900000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[384 x 1728] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[384 x 1728] <- gaussian(seed=6, init dims=[384 x 1728], range=0.004811*2.070000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[192 x 1600] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[192 x 1600] <- gaussian(seed=7, init dims=[192 x 1600], range=0.005000*2.000000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[64 x 363] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[64 x 363] <- gaussian(seed=8, init dims=[64 x 363], range=0.010497*0.950000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 64] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 64] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 192] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 192] <- 1.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 384] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 384] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 256] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 256] <- 1.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 256] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 256] <- 1.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 1] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 1] <- 1.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 1] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[4096 x 1] <- 1.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 1] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 1] <- 1.000000.
+
+Post-processing network...
+
+3 roots:
+	ce = CrossEntropyWithSoftmax()
+	evalNodes = ClassificationError()
+	o1 = Plus()
+
+Validating network. 48 nodes to process in pass 1.
+
+Validating --> labels = InputValue() :  -> [2 x *]
+Validating --> o1.W = LearnableParameter() :  -> [2 x 4096]
+Validating --> h2.W = LearnableParameter() :  -> [4096 x 4096]
+Validating --> h1.W = LearnableParameter() :  -> [4096 x 7 x 7 x 256]
+Validating --> conv5.W = LearnableParameter() :  -> [256 x 2304]
+Validating --> conv4.W = LearnableParameter() :  -> [256 x 3456]
+Validating --> conv3.W = LearnableParameter() :  -> [384 x 1728]
+Validating --> conv2.W = LearnableParameter() :  -> [192 x 1600]
+Validating --> conv1.W = LearnableParameter() :  -> [64 x 363]
+Validating --> features = InputValue() :  -> [224 x 224 x 3 x *]
+Validating --> conv1.c = Convolution (conv1.W, features) : [64 x 363], [224 x 224 x 3 x *] -> [56 x 56 x 64 x *]
+Validating --> conv1.b = LearnableParameter() :  -> [1 x 1 x 64]
+Validating --> conv1.z = Plus (conv1.c, conv1.b) : [56 x 56 x 64 x *], [1 x 1 x 64] -> [56 x 56 x 64 x *]
+Validating --> conv1 = RectifiedLinear (conv1.z) : [56 x 56 x 64 x *] -> [56 x 56 x 64 x *]
+Validating --> pool1 = Pooling (conv1) : [56 x 56 x 64 x *] -> [28 x 28 x 64 x *]
+Validating --> conv2.c = Convolution (conv2.W, pool1) : [192 x 1600], [28 x 28 x 64 x *] -> [28 x 28 x 192 x *]
+Validating --> conv2.b = LearnableParameter() :  -> [1 x 1 x 192]
+Validating --> conv2.z = Plus (conv2.c, conv2.b) : [28 x 28 x 192 x *], [1 x 1 x 192] -> [28 x 28 x 192 x *]
+Validating --> conv2 = RectifiedLinear (conv2.z) : [28 x 28 x 192 x *] -> [28 x 28 x 192 x *]
+Validating --> pool2 = Pooling (conv2) : [28 x 28 x 192 x *] -> [14 x 14 x 192 x *]
+Validating --> conv3.c = Convolution (conv3.W, pool2) : [384 x 1728], [14 x 14 x 192 x *] -> [14 x 14 x 384 x *]
+Validating --> conv3.b = LearnableParameter() :  -> [1 x 1 x 384]
+Validating --> conv3.z = Plus (conv3.c, conv3.b) : [14 x 14 x 384 x *], [1 x 1 x 384] -> [14 x 14 x 384 x *]
+Validating --> conv3 = RectifiedLinear (conv3.z) : [14 x 14 x 384 x *] -> [14 x 14 x 384 x *]
+Validating --> conv4.c = Convolution (conv4.W, conv3) : [256 x 3456], [14 x 14 x 384 x *] -> [14 x 14 x 256 x *]
+Validating --> conv4.b = LearnableParameter() :  -> [1 x 1 x 256]
+Validating --> conv4.z = Plus (conv4.c, conv4.b) : [14 x 14 x 256 x *], [1 x 1 x 256] -> [14 x 14 x 256 x *]
+Validating --> conv4 = RectifiedLinear (conv4.z) : [14 x 14 x 256 x *] -> [14 x 14 x 256 x *]
+Validating --> conv5.c = Convolution (conv5.W, conv4) : [256 x 2304], [14 x 14 x 256 x *] -> [14 x 14 x 256 x *]
+Validating --> conv5.b = LearnableParameter() :  -> [1 x 1 x 256]
+Validating --> conv5.z = Plus (conv5.c, conv5.b) : [14 x 14 x 256 x *], [1 x 1 x 256] -> [14 x 14 x 256 x *]
+Validating --> conv5 = RectifiedLinear (conv5.z) : [14 x 14 x 256 x *] -> [14 x 14 x 256 x *]
+Validating --> pool3 = Pooling (conv5) : [14 x 14 x 256 x *] -> [7 x 7 x 256 x *]
+Validating --> h1.t = Times (h1.W, pool3) : [4096 x 7 x 7 x 256], [7 x 7 x 256 x *] -> [4096 x *]
+Validating --> h1.b = LearnableParameter() :  -> [4096 x 1]
+Validating --> h1.z = Plus (h1.t, h1.b) : [4096 x *], [4096 x 1] -> [4096 x 1 x *]
+Validating --> h1 = RectifiedLinear (h1.z) : [4096 x 1 x *] -> [4096 x 1 x *]
+Validating --> h1_d = Dropout (h1) : [4096 x 1 x *] -> [4096 x 1 x *]
+Validating --> h2.t = Times (h2.W, h1_d) : [4096 x 4096], [4096 x 1 x *] -> [4096 x 1 x *]
+Validating --> h2.b = LearnableParameter() :  -> [4096 x 1]
+Validating --> h2.z = Plus (h2.t, h2.b) : [4096 x 1 x *], [4096 x 1] -> [4096 x 1 x *]
+Validating --> h2 = RectifiedLinear (h2.z) : [4096 x 1 x *] -> [4096 x 1 x *]
+Validating --> h2_d = Dropout (h2) : [4096 x 1 x *] -> [4096 x 1 x *]
+Validating --> o1.t = Times (o1.W, h2_d) : [2 x 4096], [4096 x 1 x *] -> [2 x 1 x *]
+Validating --> o1.b = LearnableParameter() :  -> [2 x 1]
+Validating --> o1 = Plus (o1.t, o1.b) : [2 x 1 x *], [2 x 1] -> [2 x 1 x *]
+Validating --> ce = CrossEntropyWithSoftmax (labels, o1) : [2 x *], [2 x 1 x *] -> [1]
+Validating --> evalNodes = ClassificationError (labels, o1) : [2 x *], [2 x 1 x *] -> [1]
+
+Validating network. 30 nodes to process in pass 2.
+
+
+Validating network, final pass.
+
+conv1.c: using cuDNN convolution engine for geometry: Input: 224 x 224 x 3, Output: 56 x 56 x 64, Kernel: 11 x 11 x 3, Map: 64, Stride: 4 x 4 x 3, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool1: using cuDNN convolution engine for geometry: Input: 56 x 56 x 64, Output: 28 x 28 x 64, Kernel: 3 x 3 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv2.c: using cuDNN convolution engine for geometry: Input: 28 x 28 x 64, Output: 28 x 28 x 192, Kernel: 5 x 5 x 64, Map: 192, Stride: 1 x 1 x 64, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool2: using cuDNN convolution engine for geometry: Input: 28 x 28 x 192, Output: 14 x 14 x 192, Kernel: 3 x 3 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv3.c: using cuDNN convolution engine for geometry: Input: 14 x 14 x 192, Output: 14 x 14 x 384, Kernel: 3 x 3 x 192, Map: 384, Stride: 1 x 1 x 192, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv4.c: using cuDNN convolution engine for geometry: Input: 14 x 14 x 384, Output: 14 x 14 x 256, Kernel: 3 x 3 x 384, Map: 256, Stride: 1 x 1 x 384, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv5.c: using cuDNN convolution engine for geometry: Input: 14 x 14 x 256, Output: 14 x 14 x 256, Kernel: 3 x 3 x 256, Map: 256, Stride: 1 x 1 x 256, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool3: using cuDNN convolution engine for geometry: Input: 14 x 14 x 256, Output: 7 x 7 x 256, Kernel: 3 x 3 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+
+
+18 out of 48 nodes do not share the minibatch layout with the input data.
+
+Post-processing network complete.
+
+Created model with 48 nodes on GPU 0.
+
+Training criterion node(s):
+	ce = CrossEntropyWithSoftmax
+
+Evaluation criterion node(s):
+	evalNodes = ClassificationError
+
+
+Allocating matrices for forward and/or backward propagation.
+
+Memory Sharing: Out of 93 matrices, 61 are shared as 27, and 32 are not shared.
+
+	{ conv1.W : [64 x 363] (gradient)
+	  conv1.z : [56 x 56 x 64 x *] }
+	{ conv1.z : [56 x 56 x 64 x *] (gradient)
+	  pool1 : [28 x 28 x 64 x *] }
+	{ conv1 : [56 x 56 x 64 x *]
+	  conv1.c : [56 x 56 x 64 x *] (gradient) }
+	{ conv1 : [56 x 56 x 64 x *] (gradient)
+	  conv1.b : [1 x 1 x 64] (gradient) }
+	{ conv2.W : [192 x 1600] (gradient)
+	  conv2.z : [28 x 28 x 192 x *] }
+	{ conv2 : [28 x 28 x 192 x *]
+	  conv2.c : [28 x 28 x 192 x *] (gradient) }
+	{ conv2.z : [28 x 28 x 192 x *] (gradient)
+	  pool1 : [28 x 28 x 64 x *] (gradient)
+	  pool2 : [14 x 14 x 192 x *] }
+	{ conv2 : [28 x 28 x 192 x *] (gradient)
+	  conv2.b : [1 x 1 x 192] (gradient) }
+	{ conv3.W : [384 x 1728] (gradient)
+	  conv3.z : [14 x 14 x 384 x *] }
+	{ conv3 : [14 x 14 x 384 x *]
+	  conv3.c : [14 x 14 x 384 x *] (gradient) }
+	{ conv3.z : [14 x 14 x 384 x *] (gradient)
+	  pool2 : [14 x 14 x 192 x *] (gradient) }
+	{ conv4.W : [256 x 3456] (gradient)
+	  conv4.z : [14 x 14 x 256 x *] }
+	{ conv4 : [14 x 14 x 256 x *]
+	  conv4.c : [14 x 14 x 256 x *] (gradient) }
+	{ conv3 : [14 x 14 x 384 x *] (gradient)
+	  conv3.b : [1 x 1 x 384] (gradient)
+	  conv4.z : [14 x 14 x 256 x *] (gradient) }
+	{ conv5.W : [256 x 2304] (gradient)
+	  conv5.z : [14 x 14 x 256 x *] }
+	{ conv5 : [14 x 14 x 256 x *]
+	  conv5.c : [14 x 14 x 256 x *] (gradient) }
+	{ conv4 : [14 x 14 x 256 x *] (gradient)
+	  conv4.b : [1 x 1 x 256] (gradient)
+	  conv5.z : [14 x 14 x 256 x *] (gradient)
+	  pool3 : [7 x 7 x 256 x *] }
+	{ conv5 : [14 x 14 x 256 x *] (gradient)
+	  conv5.b : [1 x 1 x 256] (gradient)
+	  h1.t : [4096 x *] }
+	{ h1.W : [4096 x 7 x 7 x 256] (gradient)
+	  h1.z : [4096 x 1 x *] }
+	{ h1 : [4096 x 1 x *]
+	  h1.t : [4096 x *] (gradient) }
+	{ h1.z : [4096 x 1 x *] (gradient)
+	  pool3 : [7 x 7 x 256 x *] (gradient) }
+	{ h1 : [4096 x 1 x *] (gradient)
+	  h1.b : [4096 x 1] (gradient)
+	  h2.t : [4096 x 1 x *] }
+	{ h2.W : [4096 x 4096] (gradient)
+	  h2.z : [4096 x 1 x *] }
+	{ h2 : [4096 x 1 x *]
+	  h2.t : [4096 x 1 x *] (gradient) }
+	{ h1_d : [4096 x 1 x *] (gradient)
+	  h2.z : [4096 x 1 x *] (gradient) }
+	{ h2 : [4096 x 1 x *] (gradient)
+	  h2.b : [4096 x 1] (gradient)
+	  o1.t : [2 x 1 x *] }
+	{ o1 : [2 x 1 x *] (gradient)
+	  o1.W : [2 x 4096] (gradient) }
+
+
+Training 70643522 parameters in 16 out of 16 parameter tensors and 45 nodes with gradient:
+
+	Node 'conv1.W' (LearnableParameter operation) : [64 x 363]
+	Node 'conv1.b' (LearnableParameter operation) : [1 x 1 x 64]
+	Node 'conv2.W' (LearnableParameter operation) : [192 x 1600]
+	Node 'conv2.b' (LearnableParameter operation) : [1 x 1 x 192]
+	Node 'conv3.W' (LearnableParameter operation) : [384 x 1728]
+	Node 'conv3.b' (LearnableParameter operation) : [1 x 1 x 384]
+	Node 'conv4.W' (LearnableParameter operation) : [256 x 3456]
+	Node 'conv4.b' (LearnableParameter operation) : [1 x 1 x 256]
+	Node 'conv5.W' (LearnableParameter operation) : [256 x 2304]
+	Node 'conv5.b' (LearnableParameter operation) : [1 x 1 x 256]
+	Node 'h1.W' (LearnableParameter operation) : [4096 x 7 x 7 x 256]
+	Node 'h1.b' (LearnableParameter operation) : [4096 x 1]
+	Node 'h2.W' (LearnableParameter operation) : [4096 x 4096]
+	Node 'h2.b' (LearnableParameter operation) : [4096 x 1]
+	Node 'o1.W' (LearnableParameter operation) : [2 x 4096]
+	Node 'o1.b' (LearnableParameter operation) : [2 x 1]
+
+No PreCompute nodes found, or all already computed. Skipping pre-computation step.
+Finished Epoch[ 1 of 30]: [Training] ce = 0.76712871 * 27001; evalNodes = 9.040% * 27001; totalSamplesSeen = 27001; learningRatePerSample = 7.8124998e-05; epochTime=69.0352s
+Finished Epoch[ 2 of 30]: [Training] ce = 0.23284044 * 27001; evalNodes = 7.455% * 27001; totalSamplesSeen = 54002; learningRatePerSample = 7.8124998e-05; epochTime=66.3251s
+Finished Epoch[ 3 of 30]: [Training] ce = 0.19818504 * 27001; evalNodes = 7.055% * 27001; totalSamplesSeen = 81003; learningRatePerSample = 7.8124998e-05; epochTime=66.4777s
+Finished Epoch[ 4 of 30]: [Training] ce = 0.18062952 * 27001; evalNodes = 6.596% * 27001; totalSamplesSeen = 108004; learningRatePerSample = 7.8124998e-05; epochTime=66.2806s
+Finished Epoch[ 5 of 30]: [Training] ce = 0.17095415 * 27001; evalNodes = 6.344% * 27001; totalSamplesSeen = 135005; learningRatePerSample = 7.8124998e-05; epochTime=66.3423s
+Setting dropout rate to 0.5.
+Finished Epoch[ 6 of 30]: [Training] ce = 0.18264903 * 27001; evalNodes = 6.733% * 27001; totalSamplesSeen = 162006; learningRatePerSample = 7.8124998e-05; epochTime=66.3062s
+Finished Epoch[ 7 of 30]: [Training] ce = 0.16627361 * 27001; evalNodes = 6.148% * 27001; totalSamplesSeen = 189007; learningRatePerSample = 7.8124998e-05; epochTime=67.1527s
+Finished Epoch[ 8 of 30]: [Training] ce = 0.16704857 * 27001; evalNodes = 6.244% * 27001; totalSamplesSeen = 216008; learningRatePerSample = 7.8124998e-05; epochTime=66.4208s
+Finished Epoch[ 9 of 30]: [Training] ce = 0.15667562 * 27001; evalNodes = 5.859% * 27001; totalSamplesSeen = 243009; learningRatePerSample = 7.8124998e-05; epochTime=66.2777s
+Finished Epoch[10 of 30]: [Training] ce = 0.14842215 * 27001; evalNodes = 5.400% * 27001; totalSamplesSeen = 270010; learningRatePerSample = 7.8124998e-05; epochTime=66.4525s
+Finished Epoch[11 of 30]: [Training] ce = 0.15566358 * 27001; evalNodes = 5.889% * 27001; totalSamplesSeen = 297011; learningRatePerSample = 7.8124998e-05; epochTime=66.3968s
+Finished Epoch[12 of 30]: [Training] ce = 0.15096835 * 27001; evalNodes = 5.637% * 27001; totalSamplesSeen = 324012; learningRatePerSample = 7.8124998e-05; epochTime=66.5639s
+Finished Epoch[13 of 30]: [Training] ce = 0.14185764 * 27001; evalNodes = 5.259% * 27001; totalSamplesSeen = 351013; learningRatePerSample = 7.8124998e-05; epochTime=66.563s
+Finished Epoch[14 of 30]: [Training] ce = 0.14074284 * 27001; evalNodes = 5.359% * 27001; totalSamplesSeen = 378014; learningRatePerSample = 7.8124998e-05; epochTime=66.3921s
+Finished Epoch[15 of 30]: [Training] ce = 0.13328874 * 27001; evalNodes = 5.022% * 27001; totalSamplesSeen = 405015; learningRatePerSample = 7.8124998e-05; epochTime=66.5368s
+Finished Epoch[16 of 30]: [Training] ce = 0.12952132 * 27001; evalNodes = 4.955% * 27001; totalSamplesSeen = 432016; learningRatePerSample = 7.8124998e-05; epochTime=66.4947s
+Finished Epoch[17 of 30]: [Training] ce = 0.12282027 * 27001; evalNodes = 4.666% * 27001; totalSamplesSeen = 459017; learningRatePerSample = 7.8124998e-05; epochTime=66.4542s
+Finished Epoch[18 of 30]: [Training] ce = 0.12705252 * 27001; evalNodes = 4.759% * 27001; totalSamplesSeen = 486018; learningRatePerSample = 7.8124998e-05; epochTime=66.6149s
+Finished Epoch[19 of 30]: [Training] ce = 0.12537651 * 27001; evalNodes = 4.655% * 27001; totalSamplesSeen = 513019; learningRatePerSample = 7.8124998e-05; epochTime=66.6363s
+Finished Epoch[20 of 30]: [Training] ce = 0.12315994 * 27001; evalNodes = 4.648% * 27001; totalSamplesSeen = 540020; learningRatePerSample = 7.8124998e-05; epochTime=66.6131s
+Finished Epoch[21 of 30]: [Training] ce = 0.11272210 * 27001; evalNodes = 4.322% * 27001; totalSamplesSeen = 567021; learningRatePerSample = 2.34375e-05; epochTime=66.4312s
+Finished Epoch[22 of 30]: [Training] ce = 0.11222491 * 27001; evalNodes = 4.248% * 27001; totalSamplesSeen = 594022; learningRatePerSample = 2.34375e-05; epochTime=66.5801s
+Finished Epoch[23 of 30]: [Training] ce = 0.10659885 * 27001; evalNodes = 3.985% * 27001; totalSamplesSeen = 621023; learningRatePerSample = 2.34375e-05; epochTime=66.5808s
+Finished Epoch[24 of 30]: [Training] ce = 0.10878962 * 27001; evalNodes = 4.092% * 27001; totalSamplesSeen = 648024; learningRatePerSample = 2.34375e-05; epochTime=66.4389s
+Finished Epoch[25 of 30]: [Training] ce = 0.10585679 * 27001; evalNodes = 4.004% * 27001; totalSamplesSeen = 675025; learningRatePerSample = 2.34375e-05; epochTime=66.6829s
+Finished Epoch[26 of 30]: [Training] ce = 0.10534690 * 27001; evalNodes = 4.085% * 27001; totalSamplesSeen = 702026; learningRatePerSample = 2.34375e-05; epochTime=66.4806s
+Finished Epoch[27 of 30]: [Training] ce = 0.10420055 * 27001; evalNodes = 3.848% * 27001; totalSamplesSeen = 729027; learningRatePerSample = 2.34375e-05; epochTime=66.6443s
+Finished Epoch[28 of 30]: [Training] ce = 0.10459251 * 27001; evalNodes = 3.996% * 27001; totalSamplesSeen = 756028; learningRatePerSample = 2.34375e-05; epochTime=66.5676s
+Finished Epoch[29 of 30]: [Training] ce = 0.10527203 * 27001; evalNodes = 3.978% * 27001; totalSamplesSeen = 783029; learningRatePerSample = 2.34375e-05; epochTime=66.5326s
+Finished Epoch[30 of 30]: [Training] ce = 0.10223545 * 27001; evalNodes = 3.907% * 27001; totalSamplesSeen = 810030; learningRatePerSample = 2.34375e-05; epochTime=66.3893s
+CNTKCommandTrainEnd: Train
+
+Action "train" complete.
+
+
+##############################################################################
+#                                                                            #
+# Action "test"                                                              #
+#                                                                            #
+##############################################################################
+
+
+
+[CALL STACK]
+[0x7f8b4d22fb7a]    Microsoft::MSR::CNTK::ImageDataDeserializer::  CreateSequenceDescriptions  (std::shared_ptr<Microsoft::MSR::CNTK::CorpusDescriptor>,  std::string,  unsigned long,  bool) + 0x10ca
+[0x7f8b4d231a21]    Microsoft::MSR::CNTK::ImageDataDeserializer::  ImageDataDeserializer  (Microsoft::MSR::CNTK::ConfigParameters const&) + 0x5b1
+[0x7f8b4d244580]    Microsoft::MSR::CNTK::ImageReader::  ImageReader  (std::shared_ptr<Microsoft::MSR::CNTK::MemoryProvider>,  Microsoft::MSR::CNTK::ConfigParameters const&) + 0x1b0
+[0x7f8b4d21f3bc]                                                       + 0x233bc
+[0x7f8b5e6ad3da]    Microsoft::MSR::CNTK::ReaderShim<float>::  Init  (Microsoft::MSR::CNTK::ConfigParameters const&) + 0xfa
+[0x7f8b5e6849f7]    Microsoft::MSR::CNTK::DataReader::  DataReader  <Microsoft::MSR::CNTK::ConfigParameters>(Microsoft::MSR::CNTK::ConfigParameters const&) + 0x977
+[0x66523f]          void  DoEval  <float>(Microsoft::MSR::CNTK::ConfigParameters const&) + 0x16f
+[0x5ee29c]          void  DoCommands  <float>(Microsoft::MSR::CNTK::ConfigParameters const&,  std::shared_ptr<Microsoft::MSR::CNTK::MPIWrapper> const&) + 0xd9c
+[0x5a1b8c]          wmainOldCNTKConfig  (int,  wchar_t**)              + 0x9cc
+[0x5a3ea7]          wmain1  (int,  wchar_t**)                          + 0x87
+[0x599098]          main                                               + 0xd8
+[0x7f8b5cf46f45]    __libc_start_main                                  + 0xf5
+[0x59d354]                                                            
+EXCEPTION occurred: Could not open ../config/all/test_map.txt for reading.

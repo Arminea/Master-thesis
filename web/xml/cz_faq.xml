@@ -1,0 +1,20 @@
+<data>
+<faq>
+	<question>Co je CNTK?</question>
+	<answer>CNTK (Microsoft Cognitive Toolkit) je framework pro popis a vytváření neuronových sítí. Síť je reprezentována grafem, kde některé uzly reprezentují vstupní hodnoty nebo parametry sítě a jiné reprezentují maticové operace nad těmito hodnotami. Více informací lze nalézt na <a href="https://github.com/Microsoft/CNTK/wiki" target="_blank">CNTK wikipedii</a>.</answer>
+</faq>
+<faq>
+	<question>Proč jsi nezvolila jako hledané objekty šťeňátka nebo koťátka?</question>
+	<answer>Šťeňátka nebo koťátka jsou sice krásná a roztomilá, ale pořád jich lze na internetu nalézt méně než obrázků s pornografií.</answer>
+</faq>
+<faq>
+	<question>Proč to trvá tak dlouho?</question>
+	<answer>Predikce dat konvoluční neuronovou sítí je výpočetně velice náročná operace. Na zpracování vstupního obrázku je potřeba trochu času, ale věřím, že dokážete přibližně 3 vteřiny počkat na výsledek :)</answer>
+</faq>
+<!--
+<faq>
+	<question></question>
+	<answer></answer>
+</faq>
+-->
+</data>

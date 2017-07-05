@@ -1,0 +1,32 @@
+<data>
+	<!--
+<news>
+	<header></header>
+	<date></date>
+	<text>
+		
+	</text>
+</news>
+-->
+<news>
+	<header>New model</header>
+	<date>12.05.2017</date>
+	<text>
+		New version of a pretrained model was created.
+	</text>
+</news>
+<news>
+	<header>Czech language</header>
+	<date>24.03.2017</date>
+	<text>
+		The website is bilingual from now on. Language mutations are czech and english.
+	</text>
+</news>
+<news>
+	<header>Beta is on</header>
+	<date>15.03.2017</date>
+	<text>
+		It is my pleasure to announce that beta version of this web is finaly released. Remember, <i>beta</i> means it's not quite done.
+	</text>
+</news>
+</data>

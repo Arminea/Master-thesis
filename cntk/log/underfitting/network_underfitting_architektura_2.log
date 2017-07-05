@@ -1,0 +1,378 @@
+-------------------------------------------------------------------
+Build info: 
+
+		Built time: Sep  5 2016 18:57:07
+		Last modified date: Mon Sep  5 17:12:56 2016
+		Build type: Release
+		Build target: CPU-only
+		With 1bit-SGD: no
+		Math lib: mkl
+		Build Branch: master
+		Build SHA1: 6882490d6ff2c006b7940413d531580dcb24a2c1
+		Built by Teri on Teri-PC
+		Build Path: D:\CNTK\CNTK_project\Source\CNTK\
+-------------------------------------------------------------------
+
+Running on Teri-PC at 2016/09/05 20:59:49
+Command line: 
+cntk  configFile=config_all.cntk
+
+
+Configuration After Processing and Variable Resolution:
+
+configparameters: config_all.cntk:command=Train:Test
+configparameters: config_all.cntk:ConfigDir=../config
+configparameters: config_all.cntk:DataDir=../data
+configparameters: config_all.cntk:deviceId=-1
+configparameters: config_all.cntk:ImageHeight=128
+configparameters: config_all.cntk:ImageWidth=128
+configparameters: config_all.cntk:labels=2
+configparameters: config_all.cntk:LogDir=../log
+configparameters: config_all.cntk:ModelDir=../model
+configparameters: config_all.cntk:modelPath=../model/model.dnn
+configparameters: config_all.cntk:NumberOfChannels=3
+configparameters: config_all.cntk:precision=float
+configparameters: config_all.cntk:RootDir=..
+configparameters: config_all.cntk:stderr=../log/log
+configparameters: config_all.cntk:Test=[
+	action = "test"
+	reader = [
+		readerType="ImageReader"
+		file = "../config/all/test_map.txt"
+		randomize = "auto"
+		features = [
+			width = 128
+            height = 128
+            channels = 3
+            cropType=Center
+            transforms = (
+               [ 
+               		type = "Scale"
+               		width = 128
+            		height = 128
+            		channels = 3
+               		interpolations = "linear"
+               	]:
+               	[
+               		type = "Transpose"
+               	]
+            )
+		]
+		labels = [
+			labelDim = 2		
+		]
+	]
+]
+
+configparameters: config_all.cntk:Train=[
+	action = "train"	
+	BrainScriptNetworkBuilder = (new ComputationNetwork [
+        include "../config/macros.bs"
+include "../config/conv.bs"				
+	])
+	SGD = [
+		maxEpochs = 50
+		minibatchSize = 32
+learningRatesPerMB = 0.1*5:0.3		
+	]
+	reader = [
+		readerType="ImageReader"
+		file = "../config/all/train_map.txt"
+		randomize = "auto"
+		features = [
+			width = 128
+            height = 128
+            channels = 3
+            transforms = (
+               [ 
+               		type = "Scale"
+               		width = 128
+            		height = 128
+            		channels = 3
+               		interpolations = "linear"
+               	]:
+               	[
+               		type = "Transpose"
+               	]
+            )
+            brightnessRadius=0:0.2
+            contrastRadius=0:0.4
+            saturationRadius=0:0.4
+		]
+		labels = [
+			labelDim = 2	
+		]
+	]
+]
+
+Commands: Train Test
+Precision = "float"
+CNTKModelPath: ../model/model.dnn
+CNTKCommandTrainInfo: Train : 50
+CNTKCommandTrainInfo: CNTKNoMoreCommands_Total : 50
+
+##############################################################################
+#                                                                            #
+# Action "train"                                                             #
+#                                                                            #
+##############################################################################
+
+CNTKCommandTrainBegin: Train
+
+Creating virgin network.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 128] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 128] <- uniform(seed=1, init dims=[2 x 128], range=0.050000*1.500000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[128 x 32 x 32 x 32] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[128 x 32 x 32 x 32] <- uniform(seed=2, init dims=[128 x 32768], range=0.050000*1.000000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[32 x 400] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[32 x 400] <- uniform(seed=3, init dims=[32 x 400], range=0.050000*10.000000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[16 x 75] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[16 x 75] <- uniform(seed=4, init dims=[16 x 75], range=0.050000*0.004300, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1] <- 114.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 16] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 16] <- uniform(seed=5, init dims=[1 x 16], range=0.050000*1.000000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 32] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[1 x 1 x 32] <- uniform(seed=6, init dims=[1 x 32], range=0.050000*1.000000, onCPU=true).
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[128 x 1] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[128 x 1] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 1] <- 0.000000.
+Node '<placeholder>' (LearnableParameter operation): Initializing Parameter[2 x 1] <- 0.000000.
+
+Post-processing network...
+
+2 roots:
+	ce = CrossEntropyWithSoftmax()
+	errs = ClassificationError()
+
+Validating network. 28 nodes to process in pass 1.
+
+Validating --> labels = InputValue() :  -> [2 x *]
+Validating --> o1.W = LearnableParameter() :  -> [2 x 128]
+Validating --> h1.W = LearnableParameter() :  -> [128 x 32 x 32 x 32]
+Validating --> conv2.W = LearnableParameter() :  -> [32 x 400]
+Validating --> conv1.W = LearnableParameter() :  -> [16 x 75]
+Validating --> features = InputValue() :  -> [128 x 128 x 3 x *]
+Validating --> featOffs = LearnableParameter() :  -> [1 x 1]
+Validating --> featScaled = Minus (features, featOffs) : [128 x 128 x 3 x *], [1 x 1] -> [128 x 128 x 3 x *]
+Validating --> conv1.c = Convolution (conv1.W, featScaled) : [16 x 75], [128 x 128 x 3 x *] -> [128 x 128 x 16 x *]
+Validating --> conv1.b = LearnableParameter() :  -> [1 x 1 x 16]
+Validating --> conv1.z = Plus (conv1.c, conv1.b) : [128 x 128 x 16 x *], [1 x 1 x 16] -> [128 x 128 x 16 x *]
+Validating --> conv1 = RectifiedLinear (conv1.z) : [128 x 128 x 16 x *] -> [128 x 128 x 16 x *]
+Validating --> pool1 = Pooling (conv1) : [128 x 128 x 16 x *] -> [64 x 64 x 16 x *]
+Validating --> conv2.c = Convolution (conv2.W, pool1) : [32 x 400], [64 x 64 x 16 x *] -> [64 x 64 x 32 x *]
+Validating --> conv2.b = LearnableParameter() :  -> [1 x 1 x 32]
+Validating --> conv2.z = Plus (conv2.c, conv2.b) : [64 x 64 x 32 x *], [1 x 1 x 32] -> [64 x 64 x 32 x *]
+Validating --> conv2 = RectifiedLinear (conv2.z) : [64 x 64 x 32 x *] -> [64 x 64 x 32 x *]
+Validating --> pool2 = Pooling (conv2) : [64 x 64 x 32 x *] -> [32 x 32 x 32 x *]
+Validating --> h1.t = Times (h1.W, pool2) : [128 x 32 x 32 x 32], [32 x 32 x 32 x *] -> [128 x *]
+Validating --> h1.b = LearnableParameter() :  -> [128 x 1]
+Validating --> h1.z = Plus (h1.t, h1.b) : [128 x *], [128 x 1] -> [128 x 1 x *]
+Validating --> h1 = RectifiedLinear (h1.z) : [128 x 1 x *] -> [128 x 1 x *]
+Validating --> h1_d = Dropout (h1) : [128 x 1 x *] -> [128 x 1 x *]
+Validating --> o1.t = Times (o1.W, h1_d) : [2 x 128], [128 x 1 x *] -> [2 x 1 x *]
+Validating --> o1.b = LearnableParameter() :  -> [2 x 1]
+Validating --> o1 = Plus (o1.t, o1.b) : [2 x 1 x *], [2 x 1] -> [2 x 1 x *]
+Validating --> ce = CrossEntropyWithSoftmax (labels, o1) : [2 x *], [2 x 1 x *] -> [1]
+Validating --> errs = ClassificationError (labels, o1) : [2 x *], [2 x 1 x *] -> [1]
+
+Validating network. 17 nodes to process in pass 2.
+
+
+Validating network, final pass.
+
+conv1.c: using GEMM convolution engine for geometry: Input: 128 x 128 x 3, Output: 128 x 128 x 16, Kernel: 5 x 5 x 3, Map: 16, Stride: 1 x 1 x 3, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool1: using GEMM convolution engine for geometry: Input: 128 x 128 x 16, Output: 64 x 64 x 16, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv2.c: using GEMM convolution engine for geometry: Input: 64 x 64 x 16, Output: 64 x 64 x 32, Kernel: 5 x 5 x 16, Map: 32, Stride: 1 x 1 x 16, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool2: using GEMM convolution engine for geometry: Input: 64 x 64 x 32, Output: 32 x 32 x 32, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+
+
+11 out of 28 nodes do not share the minibatch layout with the input data.
+
+Post-processing network complete.
+
+Created model with 28 nodes on CPU.
+
+Training criterion node(s):
+	ce = CrossEntropyWithSoftmax
+
+Evaluation criterion node(s):
+	errs = ClassificationError
+
+
+Allocating matrices for forward and/or backward propagation.
+
+Memory Sharing: Out of 51 matrices, 31 are shared as 14, and 20 are not shared.
+
+	{ h1 : [128 x 1 x *]
+	  h1.t : [128 x *] (gradient) }
+	{ h1.z : [128 x 1 x *] (gradient)
+	  pool2 : [32 x 32 x 32 x *] (gradient) }
+	{ conv2.W : [32 x 400] (gradient)
+	  conv2.z : [64 x 64 x 32 x *] }
+	{ conv2 : [64 x 64 x 32 x *]
+	  conv2.c : [64 x 64 x 32 x *] (gradient) }
+	{ conv1.W : [16 x 75] (gradient)
+	  conv1.z : [128 x 128 x 16 x *] }
+	{ conv1 : [128 x 128 x 16 x *] (gradient)
+	  conv1.b : [1 x 1 x 16] (gradient) }
+	{ h1.W : [128 x 32 x 32 x 32] (gradient)
+	  h1.z : [128 x 1 x *] }
+	{ h1_d : [128 x 1 x *] (gradient)
+	  o1 : [2 x 1 x *] (gradient) }
+	{ conv2 : [64 x 64 x 32 x *] (gradient)
+	  conv2.b : [1 x 1 x 32] (gradient)
+	  h1.t : [128 x *] }
+	{ o1 : [2 x 1 x *]
+	  o1.W : [2 x 128] (gradient) }
+	{ conv1.z : [128 x 128 x 16 x *] (gradient)
+	  pool1 : [64 x 64 x 16 x *] }
+	{ conv1 : [128 x 128 x 16 x *]
+	  conv1.c : [128 x 128 x 16 x *] (gradient) }
+	{ h1 : [128 x 1 x *] (gradient)
+	  h1.b : [128 x 1] (gradient)
+	  o1.t : [2 x 1 x *] }
+	{ conv2.z : [64 x 64 x 32 x *] (gradient)
+	  pool1 : [64 x 64 x 16 x *] (gradient)
+	  pool2 : [32 x 32 x 32 x *] }
+
+
+Training 4208738 parameters in 8 out of 8 parameter tensors and 23 nodes with gradient:
+
+	Node 'conv1.W' (LearnableParameter operation) : [16 x 75]
+	Node 'conv1.b' (LearnableParameter operation) : [1 x 1 x 16]
+	Node 'conv2.W' (LearnableParameter operation) : [32 x 400]
+	Node 'conv2.b' (LearnableParameter operation) : [1 x 1 x 32]
+	Node 'h1.W' (LearnableParameter operation) : [128 x 32 x 32 x 32]
+	Node 'h1.b' (LearnableParameter operation) : [128 x 1]
+	Node 'o1.W' (LearnableParameter operation) : [2 x 128]
+	Node 'o1.b' (LearnableParameter operation) : [2 x 1]
+
+No PreCompute nodes found, or all already computed. Skipping pre-computation step.
+Finished Epoch[ 1 of 50]: [Training] ce = 2.39982315e+009 * 673; errs = 51.412% * 673; totalSamplesSeen = 673; learningRatePerSample = 0.003125; epochTime=35.763s
+Finished Epoch[ 2 of 50]: [Training] ce = 0.69320207 * 673; errs = 48.143% * 673; totalSamplesSeen = 1346; learningRatePerSample = 0.003125; epochTime=35.6086s
+Finished Epoch[ 3 of 50]: [Training] ce = 0.69276245 * 673; errs = 48.143% * 673; totalSamplesSeen = 2019; learningRatePerSample = 0.003125; epochTime=35.566s
+Finished Epoch[ 4 of 50]: [Training] ce = 0.69302028 * 673; errs = 48.143% * 673; totalSamplesSeen = 2692; learningRatePerSample = 0.003125; epochTime=35.3838s
+Finished Epoch[ 5 of 50]: [Training] ce = 0.69289721 * 673; errs = 48.143% * 673; totalSamplesSeen = 3365; learningRatePerSample = 0.003125; epochTime=35.5524s
+Finished Epoch[ 6 of 50]: [Training] ce = 0.69512164 * 673; errs = 53.789% * 673; totalSamplesSeen = 4038; learningRatePerSample = 0.0093750004; epochTime=35.5692s
+Finished Epoch[ 7 of 50]: [Training] ce = 0.69374654 * 673; errs = 48.143% * 673; totalSamplesSeen = 4711; learningRatePerSample = 0.0093750004; epochTime=35.6921s
+Finished Epoch[ 8 of 50]: [Training] ce = 0.69341665 * 673; errs = 48.143% * 673; totalSamplesSeen = 5384; learningRatePerSample = 0.0093750004; epochTime=35.2261s
+Finished Epoch[ 9 of 50]: [Training] ce = 0.69441316 * 673; errs = 52.303% * 673; totalSamplesSeen = 6057; learningRatePerSample = 0.0093750004; epochTime=35.6034s
+Finished Epoch[10 of 50]: [Training] ce = 0.69327594 * 673; errs = 48.143% * 673; totalSamplesSeen = 6730; learningRatePerSample = 0.0093750004; epochTime=35.4953s
+Finished Epoch[11 of 50]: [Training] ce = 0.69567005 * 673; errs = 54.383% * 673; totalSamplesSeen = 7403; learningRatePerSample = 0.0093750004; epochTime=35.6625s
+Finished Epoch[12 of 50]: [Training] ce = 0.69291522 * 673; errs = 48.143% * 673; totalSamplesSeen = 8076; learningRatePerSample = 0.0093750004; epochTime=35.4741s
+Finished Epoch[13 of 50]: [Training] ce = 0.69386208 * 673; errs = 48.143% * 673; totalSamplesSeen = 8749; learningRatePerSample = 0.0093750004; epochTime=35.9094s
+Finished Epoch[14 of 50]: [Training] ce = 0.69324946 * 673; errs = 48.143% * 673; totalSamplesSeen = 9422; learningRatePerSample = 0.0093750004; epochTime=35.3144s
+Finished Epoch[15 of 50]: [Training] ce = 0.69628766 * 673; errs = 54.681% * 673; totalSamplesSeen = 10095; learningRatePerSample = 0.0093750004; epochTime=35.5338s
+Finished Epoch[16 of 50]: [Training] ce = 0.69465191 * 673; errs = 48.143% * 673; totalSamplesSeen = 10768; learningRatePerSample = 0.0093750004; epochTime=35.7057s
+Finished Epoch[17 of 50]: [Training] ce = 0.69319844 * 673; errs = 48.143% * 673; totalSamplesSeen = 11441; learningRatePerSample = 0.0093750004; epochTime=35.3402s
+Finished Epoch[18 of 50]: [Training] ce = 0.69959779 * 673; errs = 54.681% * 673; totalSamplesSeen = 12114; learningRatePerSample = 0.0093750004; epochTime=35.6855s
+Finished Epoch[19 of 50]: [Training] ce = 0.69423894 * 673; errs = 48.143% * 673; totalSamplesSeen = 12787; learningRatePerSample = 0.0093750004; epochTime=35.6846s
+Finished Epoch[20 of 50]: [Training] ce = 0.69621402 * 673; errs = 54.978% * 673; totalSamplesSeen = 13460; learningRatePerSample = 0.0093750004; epochTime=35.5127s
+Finished Epoch[21 of 50]: [Training] ce = 0.69324198 * 673; errs = 48.143% * 673; totalSamplesSeen = 14133; learningRatePerSample = 0.0093750004; epochTime=35.6409s
+Finished Epoch[22 of 50]: [Training] ce = 0.69359322 * 673; errs = 48.143% * 673; totalSamplesSeen = 14806; learningRatePerSample = 0.0093750004; epochTime=35.0814s
+Finished Epoch[23 of 50]: [Training] ce = 0.69554426 * 673; errs = 53.789% * 673; totalSamplesSeen = 15479; learningRatePerSample = 0.0093750004; epochTime=35.5134s
+Finished Epoch[24 of 50]: [Training] ce = 0.69469938 * 673; errs = 48.143% * 673; totalSamplesSeen = 16152; learningRatePerSample = 0.0093750004; epochTime=35.6757s
+Finished Epoch[25 of 50]: [Training] ce = 0.69476509 * 673; errs = 48.143% * 673; totalSamplesSeen = 16825; learningRatePerSample = 0.0093750004; epochTime=35.4454s
+Finished Epoch[26 of 50]: [Training] ce = 0.69572787 * 673; errs = 51.114% * 673; totalSamplesSeen = 17498; learningRatePerSample = 0.0093750004; epochTime=35.5848s
+Finished Epoch[27 of 50]: [Training] ce = 0.69324007 * 673; errs = 48.143% * 673; totalSamplesSeen = 18171; learningRatePerSample = 0.0093750004; epochTime=35.2969s
+Finished Epoch[28 of 50]: [Training] ce = 0.69290651 * 673; errs = 48.143% * 673; totalSamplesSeen = 18844; learningRatePerSample = 0.0093750004; epochTime=35.5677s
+Finished Epoch[29 of 50]: [Training] ce = 0.69482535 * 673; errs = 54.383% * 673; totalSamplesSeen = 19517; learningRatePerSample = 0.0093750004; epochTime=35.4527s
+Finished Epoch[30 of 50]: [Training] ce = 0.69371801 * 673; errs = 48.143% * 673; totalSamplesSeen = 20190; learningRatePerSample = 0.0093750004; epochTime=35.2356s
+Finished Epoch[31 of 50]: [Training] ce = 0.69351990 * 673; errs = 51.114% * 673; totalSamplesSeen = 20863; learningRatePerSample = 0.0093750004; epochTime=35.2986s
+Finished Epoch[32 of 50]: [Training] ce = 0.69472972 * 673; errs = 52.600% * 673; totalSamplesSeen = 21536; learningRatePerSample = 0.0093750004; epochTime=35.4276s
+Finished Epoch[33 of 50]: [Training] ce = 0.69459731 * 673; errs = 48.143% * 673; totalSamplesSeen = 22209; learningRatePerSample = 0.0093750004; epochTime=35.7327s
+Finished Epoch[34 of 50]: [Training] ce = 0.69308676 * 673; errs = 48.143% * 673; totalSamplesSeen = 22882; learningRatePerSample = 0.0093750004; epochTime=35.2628s
+Finished Epoch[35 of 50]: [Training] ce = 0.69306517 * 673; errs = 48.143% * 673; totalSamplesSeen = 23555; learningRatePerSample = 0.0093750004; epochTime=35.2192s
+Finished Epoch[36 of 50]: [Training] ce = 0.69353123 * 673; errs = 48.143% * 673; totalSamplesSeen = 24228; learningRatePerSample = 0.0093750004; epochTime=35.4279s
+Finished Epoch[37 of 50]: [Training] ce = 0.69271556 * 673; errs = 48.143% * 673; totalSamplesSeen = 24901; learningRatePerSample = 0.0093750004; epochTime=35.4524s
+Finished Epoch[38 of 50]: [Training] ce = 0.69343347 * 673; errs = 48.143% * 673; totalSamplesSeen = 25574; learningRatePerSample = 0.0093750004; epochTime=35.6448s
+Finished Epoch[39 of 50]: [Training] ce = 0.69464869 * 673; errs = 48.143% * 673; totalSamplesSeen = 26247; learningRatePerSample = 0.0093750004; epochTime=36.5235s
+Finished Epoch[40 of 50]: [Training] ce = 0.69486421 * 673; errs = 53.492% * 673; totalSamplesSeen = 26920; learningRatePerSample = 0.0093750004; epochTime=37.8771s
+Finished Epoch[41 of 50]: [Training] ce = 0.69302908 * 673; errs = 48.143% * 673; totalSamplesSeen = 27593; learningRatePerSample = 0.0093750004; epochTime=37.1285s
+Finished Epoch[42 of 50]: [Training] ce = 0.69818247 * 673; errs = 57.058% * 673; totalSamplesSeen = 28266; learningRatePerSample = 0.0093750004; epochTime=37.5889s
+Finished Epoch[43 of 50]: [Training] ce = 0.69371661 * 673; errs = 48.143% * 673; totalSamplesSeen = 28939; learningRatePerSample = 0.0093750004; epochTime=36.0559s
+Finished Epoch[44 of 50]: [Training] ce = 0.69435140 * 673; errs = 52.006% * 673; totalSamplesSeen = 29612; learningRatePerSample = 0.0093750004; epochTime=35.5887s
+Finished Epoch[45 of 50]: [Training] ce = 0.69320379 * 673; errs = 48.143% * 673; totalSamplesSeen = 30285; learningRatePerSample = 0.0093750004; epochTime=36.0649s
+Finished Epoch[46 of 50]: [Training] ce = 0.69762902 * 673; errs = 54.978% * 673; totalSamplesSeen = 30958; learningRatePerSample = 0.0093750004; epochTime=35.9485s
+Finished Epoch[47 of 50]: [Training] ce = 0.69404931 * 673; errs = 48.143% * 673; totalSamplesSeen = 31631; learningRatePerSample = 0.0093750004; epochTime=36.0525s
+Finished Epoch[48 of 50]: [Training] ce = 0.69432533 * 673; errs = 48.143% * 673; totalSamplesSeen = 32304; learningRatePerSample = 0.0093750004; epochTime=35.6807s
+Finished Epoch[49 of 50]: [Training] ce = 0.69306535 * 673; errs = 48.143% * 673; totalSamplesSeen = 32977; learningRatePerSample = 0.0093750004; epochTime=35.8912s
+Finished Epoch[50 of 50]: [Training] ce = 0.69660548 * 673; errs = 54.978% * 673; totalSamplesSeen = 33650; learningRatePerSample = 0.0093750004; epochTime=35.733s
+CNTKCommandTrainEnd: Train
+
+Action "train" complete.
+
+
+##############################################################################
+#                                                                            #
+# Action "test"                                                              #
+#                                                                            #
+##############################################################################
+
+
+Post-processing network...
+
+2 roots:
+	ce = CrossEntropyWithSoftmax()
+	errs = ClassificationError()
+
+Validating network. 28 nodes to process in pass 1.
+
+Validating --> labels = InputValue() :  -> [2 x *1]
+Validating --> o1.W = LearnableParameter() :  -> [2 x 128]
+Validating --> h1.W = LearnableParameter() :  -> [128 x 32 x 32 x 32]
+Validating --> conv2.W = LearnableParameter() :  -> [32 x 400]
+Validating --> conv1.W = LearnableParameter() :  -> [16 x 75]
+Validating --> features = InputValue() :  -> [128 x 128 x 3 x *1]
+Validating --> featOffs = LearnableParameter() :  -> [1 x 1]
+Validating --> featScaled = Minus (features, featOffs) : [128 x 128 x 3 x *1], [1 x 1] -> [128 x 128 x 3 x *1]
+Validating --> conv1.c = Convolution (conv1.W, featScaled) : [16 x 75], [128 x 128 x 3 x *1] -> [128 x 128 x 16 x *1]
+Validating --> conv1.b = LearnableParameter() :  -> [1 x 1 x 16]
+Validating --> conv1.z = Plus (conv1.c, conv1.b) : [128 x 128 x 16 x *1], [1 x 1 x 16] -> [128 x 128 x 16 x *1]
+Validating --> conv1 = RectifiedLinear (conv1.z) : [128 x 128 x 16 x *1] -> [128 x 128 x 16 x *1]
+Validating --> pool1 = Pooling (conv1) : [128 x 128 x 16 x *1] -> [64 x 64 x 16 x *1]
+Validating --> conv2.c = Convolution (conv2.W, pool1) : [32 x 400], [64 x 64 x 16 x *1] -> [64 x 64 x 32 x *1]
+Validating --> conv2.b = LearnableParameter() :  -> [1 x 1 x 32]
+Validating --> conv2.z = Plus (conv2.c, conv2.b) : [64 x 64 x 32 x *1], [1 x 1 x 32] -> [64 x 64 x 32 x *1]
+Validating --> conv2 = RectifiedLinear (conv2.z) : [64 x 64 x 32 x *1] -> [64 x 64 x 32 x *1]
+Validating --> pool2 = Pooling (conv2) : [64 x 64 x 32 x *1] -> [32 x 32 x 32 x *1]
+Validating --> h1.t = Times (h1.W, pool2) : [128 x 32 x 32 x 32], [32 x 32 x 32 x *1] -> [128 x *1]
+Validating --> h1.b = LearnableParameter() :  -> [128 x 1]
+Validating --> h1.z = Plus (h1.t, h1.b) : [128 x *1], [128 x 1] -> [128 x 1 x *1]
+Validating --> h1 = RectifiedLinear (h1.z) : [128 x 1 x *1] -> [128 x 1 x *1]
+Validating --> h1_d = Dropout (h1) : [128 x 1 x *1] -> [128 x 1 x *1]
+Validating --> o1.t = Times (o1.W, h1_d) : [2 x 128], [128 x 1 x *1] -> [2 x 1 x *1]
+Validating --> o1.b = LearnableParameter() :  -> [2 x 1]
+Validating --> o1 = Plus (o1.t, o1.b) : [2 x 1 x *1], [2 x 1] -> [2 x 1 x *1]
+Validating --> ce = CrossEntropyWithSoftmax (labels, o1) : [2 x *1], [2 x 1 x *1] -> [1]
+Validating --> errs = ClassificationError (labels, o1) : [2 x *1], [2 x 1 x *1] -> [1]
+
+Validating network. 17 nodes to process in pass 2.
+
+
+Validating network, final pass.
+
+conv1.c: using GEMM convolution engine for geometry: Input: 128 x 128 x 3, Output: 128 x 128 x 16, Kernel: 5 x 5 x 3, Map: 16, Stride: 1 x 1 x 3, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool1: using GEMM convolution engine for geometry: Input: 128 x 128 x 16, Output: 64 x 64 x 16, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+conv2.c: using GEMM convolution engine for geometry: Input: 64 x 64 x 16, Output: 64 x 64 x 32, Kernel: 5 x 5 x 16, Map: 32, Stride: 1 x 1 x 16, Sharing: (1, 1, 1), AutoPad: (1, 1, 1), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+pool2: using GEMM convolution engine for geometry: Input: 64 x 64 x 32, Output: 32 x 32 x 32, Kernel: 2 x 2 x 1, Map: 1, Stride: 2 x 2 x 1, Sharing: (1, 1, 1), AutoPad: (1, 1, 0), LowerPad: 0 x 0 x 0, UpperPad: 0 x 0 x 0.
+
+
+11 out of 28 nodes do not share the minibatch layout with the input data.
+
+Post-processing network complete.
+
+evalNodeNames are not specified, using all the default evalnodes and training criterion nodes.
+
+
+Allocating matrices for forward and/or backward propagation.
+
+Memory Sharing: Out of 28 matrices, 0 are shared as 0, and 28 are not shared.
+
+
+Final Results: Minibatch[1-1]: errs = 69.540% * 174; ce = 0.72009882 * 174; perplexity = 2.05463625
+
+Action "test" complete.
+
+__COMPLETED__

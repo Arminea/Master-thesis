@@ -1,0 +1,95 @@
+CNTK 2.0.beta11.0 (HEAD bc81f3, Feb 10 2017 11:12:06) on robokomp at 2017/05/02 07:54:27
+
+cntk  configFile=config.cntk  deviceId=0
+-------------------------------------------------------------------
+Build info: 
+
+		Built time: Feb 10 2017 11:12:06
+		Last modified date: Fri Feb 10 11:09:57 2017
+		Build type: release
+		Build target: GPU
+		With 1bit-SGD: no
+		With ASGD: yes
+		Math lib: mkl
+		CUDA_PATH: /usr/local/cuda-8.0
+		CUB_PATH: /usr/local/cub-1.4.1
+		CUDNN_PATH: /usr/local/cudnn-5.1
+		Build Branch: HEAD
+		Build SHA1: bc81f3fb1d50d9799e84263147f7da6b8c9db8f8
+		Built by Source/CNTK/buildinfo.h$$0 on 90819b7231b1
+		Build Path: /home/philly/jenkins/workspace/CNTK-Build-Linux
+		MPI distribution: Open MPI
+		MPI version: 1.10.3
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+GPU info:
+
+		Device[0]: cores = 2496; computeCapability = 5.2; type = "GeForce GTX 970"; memory = 4036 MB
+-------------------------------------------------------------------
+
+##############################################################################
+#                                                                            #
+# Train command (train action)                                               #
+#                                                                            #
+##############################################################################
+
+Node 'model.arrayOfFunctions[0].W' (LearnableParameter operation) operation: Tensor shape was inferred as [11 x 11 x 3 x 96].
+Node 'model.arrayOfFunctions[3].W' (LearnableParameter operation) operation: Tensor shape was inferred as [5 x 5 x 96 x 192].
+Node 'model.arrayOfFunctions[6].W' (LearnableParameter operation) operation: Tensor shape was inferred as [3 x 3 x 192 x 384].
+Node 'model.arrayOfFunctions[8].W' (LearnableParameter operation) operation: Tensor shape was inferred as [3 x 3 x 384 x 384].
+Node 'model.arrayOfFunctions[10].W' (LearnableParameter operation) operation: Tensor shape was inferred as [3 x 3 x 384 x 256].
+Node 'model.arrayOfFunctions[13].arrayOfFunctions[0].W' (LearnableParameter operation) operation: Tensor shape was inferred as [4096 x 5 x 5 x 256].
+Node 'model.arrayOfFunctions[15].arrayOfFunctions[0].W' (LearnableParameter operation) operation: Tensor shape was inferred as [4096 x 4096].
+Node 'model.arrayOfFunctions[17].W' (LearnableParameter operation) operation: Tensor shape was inferred as [2 x 4096].
+
+Model has 52 nodes. Using GPU 0.
+
+Training criterion:   ce = CrossEntropyWithSoftmax
+Evaluation criterion: errs = ClassificationError
+
+Training 46380354 parameters in 16 parameter tensors.
+
+Setting dropout rate to 0.5.
+Finished Epoch[ 1 of 30]: [Training] ce = 0.52410388 * 8403; errs = 26.907% * 8403; totalSamplesSeen = 8403; learningRatePerSample = 0.00015625; epochTime=70.9896s
+Finished Epoch[ 2 of 30]: [Training] ce = 0.37413701 * 8403; errs = 15.863% * 8403; totalSamplesSeen = 16806; learningRatePerSample = 0.00015625; epochTime=68.5096s
+Finished Epoch[ 3 of 30]: [Training] ce = 0.31959545 * 8403; errs = 12.781% * 8403; totalSamplesSeen = 25209; learningRatePerSample = 0.00015625; epochTime=68.6222s
+Finished Epoch[ 4 of 30]: [Training] ce = 0.29142613 * 8403; errs = 11.758% * 8403; totalSamplesSeen = 33612; learningRatePerSample = 0.00015625; epochTime=68.9332s
+Finished Epoch[ 5 of 30]: [Training] ce = 0.27400632 * 8403; errs = 10.675% * 8403; totalSamplesSeen = 42015; learningRatePerSample = 0.00015625; epochTime=69.4623s
+Finished Epoch[ 6 of 30]: [Training] ce = 0.27233900 * 8403; errs = 10.901% * 8403; totalSamplesSeen = 50418; learningRatePerSample = 0.00015625; epochTime=69.9582s
+Finished Epoch[ 7 of 30]: [Training] ce = 0.25788842 * 8403; errs = 10.175% * 8403; totalSamplesSeen = 58821; learningRatePerSample = 0.00015625; epochTime=68.554s
+Finished Epoch[ 8 of 30]: [Training] ce = 0.23749065 * 8403; errs = 9.425% * 8403; totalSamplesSeen = 67224; learningRatePerSample = 0.00015625; epochTime=70.8939s
+Finished Epoch[ 9 of 30]: [Training] ce = 0.23966390 * 8403; errs = 9.628% * 8403; totalSamplesSeen = 75627; learningRatePerSample = 0.00015625; epochTime=70.2496s
+Finished Epoch[10 of 30]: [Training] ce = 0.20984814 * 8403; errs = 8.497% * 8403; totalSamplesSeen = 84030; learningRatePerSample = 0.00015625; epochTime=68.9664s
+Finished Epoch[11 of 30]: [Training] ce = 0.21610769 * 8403; errs = 8.556% * 8403; totalSamplesSeen = 92433; learningRatePerSample = 0.00015625; epochTime=69.8822s
+Finished Epoch[12 of 30]: [Training] ce = 0.18977041 * 8403; errs = 7.295% * 8403; totalSamplesSeen = 100836; learningRatePerSample = 0.00015625; epochTime=69.3782s
+Finished Epoch[13 of 30]: [Training] ce = 0.17113688 * 8403; errs = 6.486% * 8403; totalSamplesSeen = 109239; learningRatePerSample = 0.00015625; epochTime=70.1761s
+Finished Epoch[14 of 30]: [Training] ce = 0.15288507 * 8403; errs = 5.760% * 8403; totalSamplesSeen = 117642; learningRatePerSample = 0.00015625; epochTime=70.1572s
+Finished Epoch[15 of 30]: [Training] ce = 0.14419815 * 8403; errs = 5.486% * 8403; totalSamplesSeen = 126045; learningRatePerSample = 0.00015625; epochTime=69.7014s
+Finished Epoch[16 of 30]: [Training] ce = 0.12890223 * 8403; errs = 4.736% * 8403; totalSamplesSeen = 134448; learningRatePerSample = 0.00015625; epochTime=70.467s
+Finished Epoch[17 of 30]: [Training] ce = 0.11540763 * 8403; errs = 4.463% * 8403; totalSamplesSeen = 142851; learningRatePerSample = 0.00015625; epochTime=70.1938s
+Finished Epoch[18 of 30]: [Training] ce = 0.09803185 * 8403; errs = 3.558% * 8403; totalSamplesSeen = 151254; learningRatePerSample = 0.00015625; epochTime=69.9896s
+Finished Epoch[19 of 30]: [Training] ce = 0.09511952 * 8403; errs = 3.451% * 8403; totalSamplesSeen = 159657; learningRatePerSample = 0.00015625; epochTime=70.2381s
+Finished Epoch[20 of 30]: [Training] ce = 0.07614284 * 8403; errs = 2.892% * 8403; totalSamplesSeen = 168060; learningRatePerSample = 0.00015625; epochTime=70.9449s
+Finished Epoch[21 of 30]: [Training] ce = 0.03823822 * 8403; errs = 1.226% * 8403; totalSamplesSeen = 176463; learningRatePerSample = 4.6875e-05; epochTime=69.7834s
+Finished Epoch[22 of 30]: [Training] ce = 0.01444530 * 8403; errs = 0.309% * 8403; totalSamplesSeen = 184866; learningRatePerSample = 4.6875e-05; epochTime=69.4962s
+Finished Epoch[23 of 30]: [Training] ce = 0.00836200 * 8403; errs = 0.083% * 8403; totalSamplesSeen = 193269; learningRatePerSample = 4.6875e-05; epochTime=69.8137s
+Finished Epoch[24 of 30]: [Training] ce = 0.00612622 * 8403; errs = 0.060% * 8403; totalSamplesSeen = 201672; learningRatePerSample = 4.6875e-05; epochTime=71.0678s
+Finished Epoch[25 of 30]: [Training] ce = 0.00437291 * 8403; errs = 0.012% * 8403; totalSamplesSeen = 210075; learningRatePerSample = 4.6875e-05; epochTime=68.9483s
+Finished Epoch[26 of 30]: [Training] ce = 0.00354258 * 8403; errs = 0.012% * 8403; totalSamplesSeen = 218478; learningRatePerSample = 4.6875e-05; epochTime=71.0949s
+Finished Epoch[27 of 30]: [Training] ce = 0.00262031 * 8403; errs = 0.000% * 8403; totalSamplesSeen = 226881; learningRatePerSample = 4.6875e-05; epochTime=70.5926s
+Finished Epoch[28 of 30]: [Training] ce = 0.00237443 * 8403; errs = 0.000% * 8403; totalSamplesSeen = 235284; learningRatePerSample = 4.6875e-05; epochTime=70.2036s
+Finished Epoch[29 of 30]: [Training] ce = 0.00202687 * 8403; errs = 0.000% * 8403; totalSamplesSeen = 243687; learningRatePerSample = 4.6875e-05; epochTime=70.7065s
+Finished Epoch[30 of 30]: [Training] ce = 0.00171595 * 8403; errs = 0.000% * 8403; totalSamplesSeen = 252090; learningRatePerSample = 4.6875e-05; epochTime=70.1688s
+
+
+##############################################################################
+#                                                                            #
+# Test command (test action)                                                 #
+#                                                                            #
+##############################################################################
+
+evalNodeNames are not specified, using all the default evalnodes and training criterion nodes.
+Premature end of JPEG file
+Final Results: Minibatch[1-21]: errs = 3.085% * 1329; ce = 0.19334311 * 1329; perplexity = 1.21329902
+
+COMPLETED.
